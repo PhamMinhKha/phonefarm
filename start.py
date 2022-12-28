@@ -18,5 +18,3 @@ for x in listDevice:
     # adb.Install(x, './assets/images/apk/tiktok-27-3-3.apk')
 
 
-
-print(listDevice)

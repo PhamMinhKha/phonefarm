@@ -72,7 +72,7 @@ class AutoADB():
         return self.ExecuteCMD((self.config.KEY_DEVICES).format(deviceID, key))
 
     def ScreenShoot(self, deviceID):
-        return self.ExecuteCMD("adb -s {0} exec-out screencap -p > screen.png".format(deviceID))
+        return self.ExecuteCMD("adb -s {0} exec-out screencap -p > {1}_screen.png".format(deviceID, deviceID))
 
     def FindImage(self, deviceID, image):
 
@@ -80,7 +80,7 @@ class AutoADB():
         img = cv2.imread(image)
 
         img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        template = cv2.imread("screen.png", 0)
+        template = cv2.imread(deviceID+"_screen.png", 0)
 
         res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
         THRESHOLD = 0.9
@@ -98,7 +98,7 @@ class AutoADB():
                 img = cv2.imread(image)
 
                 img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-                template = cv2.imread("screen.png", 0)
+                template = cv2.imread(deviceID+"_screen.png", 0)
                 res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
                 THRESHOLD = 0.9
                 loc = np.where(res >= THRESHOLD)
