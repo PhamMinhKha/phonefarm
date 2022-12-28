@@ -53,8 +53,8 @@ class AutoADB():
     def ClearPackage(self, deviceID, package):
         return self.ExecuteCMD((self.config.CLEAR_PACKAGE).format(deviceID, package))
 
-    def Swipe(self, deviceID, x1, y1, x2, y2):
-        return self.ExecuteCMD((self.config.SWIPE_DEVICES).format(deviceID, x1, y1, x2, y2))
+    def Swipe(self, deviceID, x1, y1, x2, y2, tocdo):
+        return self.ExecuteCMD((self.config.SWIPE_DEVICES).format(deviceID, x1, y1, x2, y2, tocdo))
 
     def Install(self, deviceID, apk):
         return self.ExecuteCMD((self.config.INSTALL_APP).format(deviceID, apk))
