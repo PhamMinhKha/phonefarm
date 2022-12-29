@@ -29,22 +29,29 @@ def control_device(x):
         # print(data['data'])
         print('Lấy data: ',data)
         if "error" in data:
-            TDS.nhanXu("TIKTOK_LIKE", "TIKTOK_LIKE_API")
-            time.sleep(3)
+            time.sleep(10)
             data = TDS.getNV("tiktok_like")
         for v in data['data']:
             adb.OpenUrl(v["link"])
-            # time.sleep(3)
-            if(adb.FindImage(x, IconIsHeart) == False):
-                if(adb.FindImage(x, IconHeart)):
-                    adb.ClickImage(x, IconHeart)
-                    time.sleep(3)
-                    print(x, 'click ne')
-                    res = TDS.postNV("TIKTOK_LIKE_CACHE",v["id"])
-                    if(res["cache"] >= 10):
-                        time.sleep(1)
-                        print(data["cache"])
-                        TDS.nhanXu("TIKTOK_LIKE", "TIKTOK_LIKE_API")
+            time.sleep(3)
+            adb.Tap(x, 1132, 1256)
+            res = TDS.postNV("TIKTOK_LIKE_CACHE",v["id"])
+            if(res["cache"] >= 10):
+                time.sleep(1)
+                print(data["cache"])
+                TDS.nhanXu("TIKTOK_LIKE", "TIKTOK_LIKE_API")
+            # if(adb.FindImage(x, IconIsHeart) == False):
+            #     if(adb.FindImage(x, IconHeart)):
+            #         adb.ClickImage(x, IconHeart)
+            #         time.sleep(3)
+            #         print(x, 'click ne')
+            #         res = TDS.postNV("TIKTOK_LIKE_CACHE",v["id"])
+            #         if(res["cache"] >= 10):
+            #             time.sleep(1)
+            #             print(data["cache"])
+            #             TDS.nhanXu("TIKTOK_LIKE", "TIKTOK_LIKE_API")
+            #     else :
+            #         print('Không tìm thấy heart')
             # adb.Swipe(x, 250, 600, 250, 300, 250)
             # time.sleep(3)
         print(x, 'lập')
