@@ -15,5 +15,5 @@ class Database:
         projectModel = QSqlQueryModel()
         projectModel.setQuery("select * from devices")
         # data = projectModel.query().exec()
-        print(projectModel.record(0).value("sonhiemvu"))
+        # print(projectModel.record(0).value("sonhiemvu"))
         return projectModel

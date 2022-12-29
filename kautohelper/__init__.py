@@ -92,7 +92,7 @@ class AutoADB():
         return False
 
     def ClickImage(self, deviceID, image):
-
+        isClick = False
         while True:
             if self.FindImage(deviceID, image) == True:
                 img = cv2.imread(image)
@@ -104,7 +104,10 @@ class AutoADB():
                 loc = np.where(res >= THRESHOLD)
 
                 for y, x in zip(loc[0], loc[1]):
-                    self.Tap(deviceID, x, y)
+                    if(isClick == False):
+                        self.Tap(deviceID, x, y)
+                        print('active click')
+                        isClick = True
                 break
 
     def Get2FA(self, code_2fa):
@@ -173,4 +176,6 @@ class AutoADB():
         charsb64 = str(base64.b64encode(text.encode('utf-8')))[1:]
         self.ExecuteCMD("ime set com.android.adbkeyboard/.AdbIME")
         self.ExecuteCMD("am broadcast -a ADB_INPUT_B64 --es msg %s" % charsb64)
+    def OpenUrl(self, url):
+         self.ExecuteCMD("adb shell am start -a android.intent.action.VIEW -d " + url)
 
