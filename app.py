@@ -23,23 +23,30 @@ listDevice = adb.GetDevices()
 
 def control_device(x):
     #   # Use subprocess to run adb commands for the specified device
+    job = 1
     while True:
         TDS = TraoDoiSub.Traodoisub()
-        data = TDS.getNV("tiktok_like")
+        # data = TDS.getNV("tiktok_like")
+        data = TDS.getNV("tiktok_follow")
         # print(data['data'])
         print('Lấy data: ',data)
         if "error" in data:
             time.sleep(10)
-            data = TDS.getNV("tiktok_like")
+            data = TDS.getNV("tiktok_follow")
+            # data = TDS.getNV("tiktok_like")
         for v in data['data']:
+            print("job hiện tại: " + str(job))
+            job = job + 1
             adb.OpenUrl(v["link"])
+            time.sleep(15)
+            # adb.Tap(x, 1132, 1256)
+            adb.Tap(x, 509, 590)
+            res = TDS.postNV("TIKTOK_FOLLOW_CACHE",v["id"])
             time.sleep(3)
-            adb.Tap(x, 1132, 1256)
-            res = TDS.postNV("TIKTOK_LIKE_CACHE",v["id"])
             if(res["cache"] >= 10):
                 time.sleep(1)
-                print(data["cache"])
-                TDS.nhanXu("TIKTOK_LIKE", "TIKTOK_LIKE_API")
+                # print(data["cache"])
+                TDS.nhanXu("TIKTOK_FOLLOW", "TIKTOK_FOLLOW_API")
             # if(adb.FindImage(x, IconIsHeart) == False):
             #     if(adb.FindImage(x, IconHeart)):
             #         adb.ClickImage(x, IconHeart)
